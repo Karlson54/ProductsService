@@ -8,7 +8,6 @@ namespace ProductsDataLayer
     public class ProductsRepository
     {
         private static List<Product> _products;
-
         static ProductsRepository()
         {
             _products = new List<Product>();
@@ -21,17 +20,14 @@ namespace ProductsDataLayer
 
             return product.Id;
         }
-
         public List<Product> GetAll()
         {
             return _products;
         }
-
         public Product GetById(Guid id)
         {
             return _products.FirstOrDefault(x => x.Id == id);
         }
-
         public Product Update(Product product)
         {
             var oldProduct = _products.FirstOrDefault(x => x.Id == product.Id);
@@ -40,7 +36,6 @@ namespace ProductsDataLayer
 
             return product;
         }
-
         public Product DeleteById(Guid id)
         {
             var oldProduct = _products.FirstOrDefault(x => x.Id == id);
