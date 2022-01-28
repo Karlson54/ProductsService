@@ -12,7 +12,7 @@ namespace ProductsDataLayer
         {
             _products = new List<Product>();
         }
-        public Guid Add(Product product)
+        public Guid Create(Product product)
         {
             product.Id = Guid.NewGuid();
 
@@ -32,8 +32,8 @@ namespace ProductsDataLayer
         {
             var oldProduct = _products.FirstOrDefault(x => x.Id == product.Id);
             var index = _products.IndexOf(oldProduct);
+            product.IsAvailableToBuy = _products[index].IsAvailableToBuy;
             _products[index] = product;
-
             return product;
         }
         public Product DeleteById(Guid id)

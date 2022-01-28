@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ProductsBusinessLayer;
+using ProductsBusinessLayer.DTOs;
+using ProductsCore.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductsPresentationLayer.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private static ProductsService _productsService;
 
-        static ProductController()
+        static ProductsController()
         {
             _productsService = new ProductsService();
         }
@@ -35,7 +35,8 @@ namespace ProductsPresentationLayer.Controllers
             }
             return NotFound();
         }
-        [HttpGet("{id}")]
+        
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProductById(Guid id)
         {
             var item = await _productsService.DeleteProductById(id);
@@ -44,6 +45,28 @@ namespace ProductsPresentationLayer.Controllers
                 return Ok(item);
             }
             return NotFound();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(ProductDTO product)
+        {
+            var guid = await _productsService.CreateProduct(product);
+            if (guid != Guid.Empty)
+            {
+                return Ok(guid);
+            }
+            return BadRequest();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProduct(Guid id, ProductDTO product)
+        {
+            var updateProduct = await _productsService.UpdateProduct(id, product);
+            if (updateProduct != null)
+            {
+                return Ok(updateProduct);
+            }
+            return BadRequest();
         }
     }
 }
