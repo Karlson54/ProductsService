@@ -10,16 +10,17 @@ namespace ProductsPresentationLayer.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        private static ProductsService _productsService;
+        private static IProductsService _productsService;
 
-        static ProductsController()
+        public ProductsController(IProductsService productsService)
         {
-            _productsService = new ProductsService();
+            _productsService = productsService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
+            await _productsService.GetAllProducts();
             var items =  await _productsService.GetAllProducts();
             return Ok(items);
         }
