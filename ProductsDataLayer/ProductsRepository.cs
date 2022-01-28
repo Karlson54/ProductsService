@@ -31,10 +31,17 @@ namespace ProductsDataLayer
         public Product Update(Product product)
         {
             var oldProduct = _products.FirstOrDefault(x => x.Id == product.Id);
-            var index = _products.IndexOf(oldProduct);
-            product.IsAvailableToBuy = _products[index].IsAvailableToBuy;
-            _products[index] = product;
-            return product;
+            if (oldProduct != null)
+            {
+                var index = _products.IndexOf(oldProduct);
+                
+                product.IsAvailableToBuy = oldProduct.IsAvailableToBuy;
+                _products[index] = product;
+                
+                return product;
+            }
+
+            return null;
         }
         public Product DeleteById(Guid id)
         {
