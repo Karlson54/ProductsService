@@ -21,7 +21,29 @@ namespace ProductsPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            return await _productsService.GetAllProducts
+            var items =  await _productsService.GetAllProducts();
+            return Ok(items);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductById (Guid id)
+        {
+            var item = await _productsService.GetProductById(id);
+            if (item != null)
+            {
+                return Ok(item);
+            }
+            return NotFound();
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> DeleteProductById(Guid id)
+        {
+            var item = await _productsService.DeleteProductById(id);
+            if (item != null)
+            {
+                return Ok(item);
+            }
+            return NotFound();
         }
     }
 }
