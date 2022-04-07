@@ -9,10 +9,8 @@ namespace ProductsBusinessLayer
 {
     public class ProductsService : IProductsService
     {
-        public int Test = 1;
         public ProductsService()
         {
-            Test++;
         }
         private static ProductsRepository _productsRepository;
         static ProductsService()

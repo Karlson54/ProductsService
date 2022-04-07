@@ -20,8 +20,8 @@ namespace ProductsPresentationLayer.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            await _productsService.GetAllProducts();
             var items =  await _productsService.GetAllProducts();
+            
             return Ok(items);
         }
 

@@ -19,7 +19,7 @@ namespace ProductsPresentationLayer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IProductsService, ProductsService>();
+            services.AddScoped<IProductsService, ProductsService>();
             services.AddControllers();
         }
 
